@@ -66,9 +66,9 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Category(),
-                  Search(),
+                  Search(amIOnHomepage: true),
                   PopularPlaces(),
                   Recommended(),
                 ],

@@ -13,7 +13,7 @@ class CardPlace extends StatelessWidget {
     return  GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dettagli(meta))),
       child: SizedBox(
-        height: 180,
+
         width: 150,
         child: Card(
           elevation: 5,
@@ -35,19 +35,19 @@ class CardPlace extends StatelessWidget {
                       )
                     )),
                 Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Text(meta.city,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.pin_drop,
+                    const Icon(Icons.pin_drop,
                         color: Colors.blueAccent, size: 10),
                     Text(meta.country,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blueAccent,
                             fontSize: 12)),

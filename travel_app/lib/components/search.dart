@@ -20,9 +20,9 @@ class Search extends StatelessWidget {
                 FocusScope.of(context).unfocus();
                 Navigator.of(context).pushNamed('/ricerca');
               } : null,
-               /* onChanged: callBack,
+               onChanged: callBack,
                 readOnly: amIOnHomepage,
-                autofocus: !amIOnHomepage,*/
+                autofocus: !amIOnHomepage,
                 decoration: const  InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Search',
@@ -34,13 +34,16 @@ class Search extends StatelessWidget {
         Container(
           width: 60,
           height: 60,
-          padding: const EdgeInsets.all(16),
+
           decoration: BoxDecoration(
             color: Colors.blue.shade100,
             borderRadius: BorderRadius.circular(10),
           ),
           child:
-          const Icon(Icons.filter_list, color: Colors.blueAccent),
+          IconButton(
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+              icon: Icon(Icons.filter_list, color: Colors.blueAccent),
+          )
         ),
       ],
     );
