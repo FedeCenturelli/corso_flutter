@@ -15,12 +15,12 @@ class FilterDrawer extends StatefulWidget {
 }
 
 class _FilterDrawerState extends State<FilterDrawer> {
-  late RangeValues selectedRating;
+  late RangeValues _selectedRating;
 
   @override
   void initState() {
     super.initState();
-    selectedRating = widget.selectedRating;
+    _selectedRating = widget.selectedRating; //widget. per riferirsi al valore del widget filter drawer
   }
 
   @override
@@ -40,24 +40,24 @@ class _FilterDrawerState extends State<FilterDrawer> {
           RangeSlider(
               min: 1,
               max: 5,
-              values: selectedRating,
+              values: _selectedRating,
               onChanged: (RangeValues value) {
                 setState(() {
-                  selectedRating = value;
+                  _selectedRating = value;
                 });
               },
               divisions: 4,
               labels: RangeLabels(
-                selectedRating.start.toString().substring(0, 1),
-                selectedRating.end.toString().substring(0, 1),
+                _selectedRating.start.toString().substring(0, 1),
+               _selectedRating.end.toString().substring(0, 1),
               )),
           Row(
             children: [
               TextButton(
                 onPressed: (){
                   widget.setFilters(
-                    minRating: selectedRating.start.toInt(),
-                    maxRating: selectedRating.end.toInt(),
+                    minRating: _selectedRating.start.toInt(),
+                    maxRating: _selectedRating.end.toInt(),
                   );
                 },
                 child: Text('Applica')
