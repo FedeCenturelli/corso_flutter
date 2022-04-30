@@ -4,6 +4,7 @@ import 'package:travel_app/pages/global_search.dart';
 import 'package:travel_app/pages/home.dart';
 import 'package:travel_app/pages/login_page.dart';
 import 'package:travel_app/pages/preferiti.dart';
+import 'package:travel_app/pages/reinderizzamento.dart';
 import 'package:travel_app/pages/ricerca_page.dart';
 
 generateRoutes() {
@@ -14,6 +15,7 @@ generateRoutes() {
     '/favourites': (context) => const Center(child: Preferiti()),
     '/mete': (context) => const Center(child: GlobalSearch()),
     '/login': (contex) => const Center(child: LoginPage()),
-    '/ricerca': (contex) => const Center(child: RicercaPage())
+    '/ricerca': (contex) => const Center(child: RicercaPage()),
+    '/reinderizzamento': (contex) => const Center(child: Reinderizzamento()),
   };
 }

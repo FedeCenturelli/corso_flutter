@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
         )
       ),
-      initialRoute: '/login',
+      initialRoute: '/reinderizzamento',
       routes: generateRoutes(),
     );
   }

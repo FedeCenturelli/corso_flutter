@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/components/card_place.dart';
 import 'package:travel_app/components/category.dart';
 import 'package:travel_app/components/category_card.dart';
@@ -8,6 +9,8 @@ import 'package:travel_app/components/recommended.dart';
 import 'package:travel_app/components/search.dart';
 import 'package:travel_app/models/interessi.dart';
 import 'package:travel_app/models/meta_turistica.dart';
+import 'package:travel_app/pages/login_page.dart';
+
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -56,7 +59,14 @@ class Home extends StatelessWidget {
                onTap: () => Navigator.of(context).pushNamed('/favourites')),
            ListTile(leading: Icon(Icons.search), title: Text('Global search'),
                onTap: () => Navigator.of(context).pushNamed('/mete')),
-         ])
+           ListTile(leading: Icon(Icons.person), title: Text('Logout'),
+               onTap: () async {
+             SharedPreferences sp = await SharedPreferences.getInstance();
+             sp.setBool('loggato', false);
+             Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+           }
+           ),
+    ])
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/components/bottone_prefetiti.dart';
 import 'package:travel_app/components/pictures.dart';
 import 'package:travel_app/components/titolo.dart';
 import 'package:travel_app/models/meta_turistica.dart';
@@ -13,7 +14,7 @@ class Dettagli extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           children: [
             Stack(
               //no stack figlio diretto di stack
@@ -36,31 +37,24 @@ class Dettagli extends StatelessWidget {
                 Positioned(
                     top: 50,
                     left: 25,
-                    child: (Container(
+                    child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white54,
                           borderRadius: BorderRadius.circular(10)),
                       child: IconButton(
                         padding: EdgeInsets.zero,
                           onPressed: () => Navigator.of(context).pop(),
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.chevron_left,
                             size: 50,
                           )),
-                    ))),
+                    )),
 
                 //ICONA SALVATO
                 Positioned(
                     top: 50,
                     right: 25,
-                    child: (Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Colors.white54,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(Icons.bookmark, size: 30),
-                    ))),
+                    child: BottonePrefetiti(meta)),
 
                 //CONTAINER DAL BASSO
                 Positioned(

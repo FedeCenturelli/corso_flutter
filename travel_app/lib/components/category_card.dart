@@ -28,12 +28,12 @@ class CategoryCard extends StatelessWidget {
                 ),
                 width: 50,
                 height: 50,
-                child: Icon(icona),
+                child: Icon(icona, color: Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(testo, style: const TextStyle(
-                    color: Colors.grey)),
+                    color: Colors.black)),
               ),
             ],
           ),

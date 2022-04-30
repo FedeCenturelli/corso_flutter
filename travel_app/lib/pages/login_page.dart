@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -107,8 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor:
                           MaterialStateProperty.all(Colors.blueAccent)
                       ),
-                         onPressed: () {
+                         onPressed: () async {
+                        SharedPreferences sp = await SharedPreferences.getInstance();
                         if(_formKey.currentState!.validate()) {
+                          sp.setBool('loggato', true);
                           Navigator.of(context).popAndPushNamed('/');
                         }
                       }
