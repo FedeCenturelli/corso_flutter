@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CategoryCard extends StatelessWidget {
+class CategoryCard extends StatefulWidget {
 
   final IconData icona;
   final String testo;
   final Color colore;
+
   const CategoryCard({required this.icona, required this.testo, required this.colore,Key? key}) : super(key: key);
+
+  @override
+  State<CategoryCard> createState() => _CategoryCardState();
+}
+
+class _CategoryCardState extends State<CategoryCard> {
+
+  final bool attivo = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +31,17 @@ class CategoryCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: colore,
+                  color: widget.colore,
                   borderRadius: BorderRadius.circular(10),
 
                 ),
                 width: 50,
                 height: 50,
-                child: Icon(icona, color: Colors.white),
+                child: Icon(widget.icona, color: Colors.black54),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(testo, style: const TextStyle(
+                child: Text(widget.testo, style: const TextStyle(
                     color: Colors.black)),
               ),
             ],

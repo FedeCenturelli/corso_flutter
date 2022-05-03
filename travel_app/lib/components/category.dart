@@ -18,6 +18,10 @@ class Category extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
+              CategoryCard(
+                  icona: Icons.category,
+                  testo: 'all',
+                  colore: Colors.red),
               Row(
                 children: <Widget>[Text('')] +
                     Interessi.values

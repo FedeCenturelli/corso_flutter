@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/components/category.dart';
 import 'package:travel_app/models/meta_turistica.dart';
 
 class FilterDrawer extends StatefulWidget {
@@ -65,6 +66,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                         color: Colors.blue,
                         fontSize: 20)),
               ),
+              Category(),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Rating',
@@ -76,6 +78,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+
                   Text('1'),
                   RangeSlider(
                       min: 1,

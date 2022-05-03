@@ -77,7 +77,6 @@ class Home extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Category(),
                   Search(amIOnHomepage: true),
                   PopularPlaces(),
                   Recommended(),

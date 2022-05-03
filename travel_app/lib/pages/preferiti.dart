@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:travel_app/models/meta_turistica.dart';
 
-class Preferiti extends StatefulWidget {
+class Preferiti extends StatelessWidget {
+  final StreamingSharedPreferences sp;
+
+  const Preferiti(this.sp,{Key? key}) : super(key: key);
 
 
-  const Preferiti({Key? key}) : super(key: key);
-
-  @override
-  State<Preferiti> createState() => _PreferitiState();
-}
-
-class _PreferitiState extends State<Preferiti> {
-
-
-  List<MetaTuristica> listaMetePreferite = []; // contine le mete di lista mete che trovano una corrispondenza della città nella lista preferiti
-  List<String> preferitiSalvati = []; //preferiti in SharedPreferences
+  List<MetaTuristica> getMetePreferite(List<String> _preferences) {
+    List<MetaTuristica> metePreferite = [];
+    for(var meta in MetaTuristica.listaMete) {
+      if(_preferences.contains(meta.city)) {
+        metePreferite.add(meta);
+      }
+    }
+    return metePreferite;
+  }
 
   void initializeSharedPreferences () async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
+    StreamingSharedPreferences sp = await StreamingSharedPreferences.instance;
     preferitiSalvati = sp.getStringList('preferiti') ?? [];
 
     setState(() {
@@ -28,12 +29,6 @@ class _PreferitiState extends State<Preferiti> {
         }
       });
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initializeSharedPreferences();
   }
 
   @override
