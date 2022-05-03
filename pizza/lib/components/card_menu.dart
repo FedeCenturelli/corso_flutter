@@ -5,7 +5,7 @@ class CardMenu extends StatelessWidget {
 
   const CardMenu({Key? key}) : super(key: key);
 
-
+//TODO aggiungere alla card pizza il navigator of context verso la pagina delle pizze preferite
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -26,7 +26,7 @@ class CardMenu extends StatelessWidget {
               child: Column(
                   children: [
                     Expanded(child: Image(image: Immagine.listaImmagini[index])),
-                    Container(color: Colors.red,child: Text('ciao')),
+                    Container(color: Colors.red,child: Text('ciao')), //TODO mettere a posto il nome della categoia
                   ]),
             ),);
         }
