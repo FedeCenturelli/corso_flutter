@@ -1,9 +1,10 @@
+import 'package:facebook/pages/profilo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({Key? key}) : super(key: key);
-
 
 
   @override
@@ -30,7 +31,16 @@ class MenuDrawer extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.person),
           title: const Text('Profilo'),
-          onTap: () => Navigator.of(context).popAndPushNamed('/profilo'),
+          onTap: () async {
+            SharedPreferences sp = await SharedPreferences.getInstance();
+            var _loggedId = sp.getString('id');
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Profilo(id: _loggedId))
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Impostazioni'),
         ),
         ListTile(
           leading: Icon(Icons.logout),

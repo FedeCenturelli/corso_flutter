@@ -6,6 +6,6 @@ generateRoutes() {
   return {
     '/' : (context) => const Home(),
     '/login' : (context) => const Login(),
-    '/profilo' : (context) => const Profilo(),
+   // '/profilo' : (context) => const Profilo(),
   };
 }

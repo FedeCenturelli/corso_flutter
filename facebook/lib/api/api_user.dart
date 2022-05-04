@@ -13,9 +13,6 @@ class ApiUser {
     final response = await http.get(Uri.parse('$baseUrl/user'),
         headers: {'app-id': '626fc967e000f62c19f05f23'}
     );
-
-
-
     if (response.statusCode == 200) {
       return UserResponse.fromJson(jsonDecode(response.body));
     }
@@ -29,9 +26,6 @@ class ApiUser {
         Uri.parse('$baseUrl/user/$id?page=$page&limit=$limit'),
         headers: {'app-id':'626fc967e000f62c19f05f23'}
     );
-
-    print(response.body);
-
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
     }

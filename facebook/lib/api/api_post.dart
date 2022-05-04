@@ -10,14 +10,13 @@ class ApiPost {
   static String get baseUrl => 'https://dummyapi.io/data/v1/';
 
 //funzione per ottenere la lista dei post
-  static Future<PostResponse> getPostList() async {
+  static Future<PostResponse> getPostList({int page = 0, int limit = 20}) async {
     //di tipo http.response
     final response = await http.get(
-        Uri.parse('$baseUrl/post'),
+        Uri.parse('$baseUrl/post?page=$page&limit=$limit'),
         headers: {'app-id': '626fc967e000f62c19f05f23'}
     );
 
-    print(response.body);
 
     if (response.statusCode == 200) {
       return PostResponse.fromJson(jsonDecode(response.body));
@@ -26,14 +25,12 @@ class ApiPost {
   }
 
   //funzione per ottenere post tramite utente
-  static Future<Post> getPostByUser(String id,
-      {int page = 0, int limit = 20}) async {
+  static Future<Post> getPostByUser(String id, {int page = 0, int limit = 20}) async {
     final response = await http.get(
         Uri.parse('$baseUrl/user/$id/post?page=$page&limit=$limit'),
         headers: {'app-id': '626fc967e000f62c19f05f23'}
     );
 
-    print(response.body);
 
     if (response.statusCode == 200) {
       return Post.fromJson(jsonDecode(response.body));
@@ -50,7 +47,7 @@ class ApiPost {
         headers: {'app-id': '626fc967e000f62c19f05f23'}
     );
 
-    print(response.body); //controllo per json
+    //print(response.body); //controllo per json
 
     if (response.statusCode == 200) {
       return Post.fromJson(jsonDecode(response.body));
@@ -66,7 +63,6 @@ class ApiPost {
         headers: {'app-id': '626fc967e000f62c19f05f23'}
     );
 
-    print(response.body);
 
     if (response.statusCode == 200) {
       return Post.fromJson(jsonDecode(response.body));
