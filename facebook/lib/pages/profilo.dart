@@ -1,4 +1,6 @@
 import 'package:facebook/api/api_user.dart';
+import 'package:facebook/components/data_from_api_post.dart';
+import 'package:facebook/components/user_info_panel.dart';
 import 'package:facebook/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,58 +32,43 @@ class _ProfiloState extends State<Profilo> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('profilo'),
+        title: Text('Profilo'),
       ),
       body: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
-          return ListView(children: [
+        builder: (context, AsyncSnapshot<User> snapshot) {
+          if(! snapshot.hasData)
+            return Center(
+                child: CircularProgressIndicator()
+            );
+
+          var user = snapshot.data!; //creo una variabile user con i dati dellosnapshot, assumi che i deti non sono sicuramente nulli
+          return Column(
+           // shrinkWrap: true,
+              children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                   radius: 84,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(80),
-                    child: Image.network('https://randomuser.me/api/portraits/women/58.jpg', height: 160, fit: BoxFit.fill,
+                    child: Image.network(user.picture ?? '', height: 160, fit: BoxFit.fill,
                     ),
                   )),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
-                  child: Text('nome e cognome')),
+                  child: Text('${user.firstName} ${user.lastName}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30))),
             ),
-            Card(
-                child: Column(
 
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.phone),
-                        Text('telefono'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.email),
-                        Text('email'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.male),
-                        Text('gender'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.place),
-                        Text('indirizzo'),
-                      ],
-                    ),
-                  ],
-                )
-            )
+            Expanded(
+              child: ListView(
+                children : [
+                  UserInfoPanel(user: user),
+                  DataFromApiPost(idUserPerPost: user.id)
+              ]),
+            ),
           ]);
         }
       ),

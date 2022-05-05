@@ -1,38 +1,51 @@
 import 'package:facebook/models/post.dart';
+import 'package:facebook/pages/dettagli_post.dart';
+import 'package:facebook/pages/profilo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;
-
-  PostCard({required this.post, Key? key}) : super(key: key);
+  final bool showCommentButton;
+  PostCard({required this.post, this.showCommentButton = true, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(post.owner.picture ?? ''),
-                minRadius: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(post.owner.firstName,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text(post.publishDate ?? '',
-                        style: TextStyle(fontSize: 15, color: Colors.grey))
-                  ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Profilo(id: post.owner.id!),
                 ),
-              ),
-            ],
+              );
+            },
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(post.owner.picture ?? ''),
+                  minRadius: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(post.owner.firstName,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+
+                      Text(DateFormat('d/M/y H:m').format(DateTime.parse(post.publishDate ?? '')), style: TextStyle(fontSize: 15, color: Colors.grey)),
+                    ],),
+                ),
+              ],
+            ),
           ),
 
           Padding(
@@ -62,20 +75,37 @@ class PostCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.purple[800],
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          final snackBar = SnackBar(
+                            content: Text('Liked!'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          },
+                        child: Row(
+                          children: [
+                            Icon(Icons.favorite_outlined, color: Colors.purple[800],),
+                          Text('${post.likes.toString()} Like'),
+                          ]),
+                      ),
+                    ],
                   ),
-                  Text(post.likes.toString()),
-                ],
-              ),
-
-                  Text('commenti'),
-            ]),
+                  if(showCommentButton == true)
+                  TextButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => DettagliPost(post: post)),
+                    ),
+                    child: Text('Commenti', style: TextStyle(color: Colors.black),),
+                    style: TextButton.styleFrom(
+                      side: BorderSide(color: Colors.purple.shade800, width: 2,),
+                  ),
+                ),
+                ]),
           )
         ]),
       ),

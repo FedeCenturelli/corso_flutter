@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Drawer(

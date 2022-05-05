@@ -25,7 +25,7 @@ class ApiPost {
   }
 
   //funzione per ottenere post tramite utente
-  static Future<Post> getPostByUser(String id, {int page = 0, int limit = 20}) async {
+  static Future<PostResponse> getPostByUser(String id, {int page = 0, int limit = 20}) async {
     final response = await http.get(
         Uri.parse('$baseUrl/user/$id/post?page=$page&limit=$limit'),
         headers: {'app-id': '626fc967e000f62c19f05f23'}
@@ -33,7 +33,7 @@ class ApiPost {
 
 
     if (response.statusCode == 200) {
-      return Post.fromJson(jsonDecode(response.body));
+      return PostResponse.fromJson(jsonDecode(response.body));
     }
     throw Exception(
         'Errore nel ricevere i post tramite il propriario: ${response.body}');

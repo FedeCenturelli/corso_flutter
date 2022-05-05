@@ -7,15 +7,15 @@ part 'comment.g.dart';
 
 class Comment {
 final String? id;
-final String? message;
-final User? owner;
+final String message;
+final User owner;
 final String? post;
 final String? publishDate;
 
 const Comment ({
   this.id,
-  this.message,
-  this.owner,
+  required this.message,
+  required this.owner,
   this.post,
   this.publishDate,
 });
