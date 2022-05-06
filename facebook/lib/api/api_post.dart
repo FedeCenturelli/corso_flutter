@@ -69,4 +69,63 @@ class ApiPost {
     }
     throw Exception('Errore nel ricevere i post tramite id: ${response.body}');
   }
+
+  //funzione per aggiungere un post
+  static Future<Post> addComment(Post post) async {
+    Map<String, dynamic> _jsonPost = post.toJson(); //trasformo il post in json
+    _jsonPost.removeWhere((key, value) => value == null);
+
+    //se sono qui significa che il post non è nullo
+    final http.Response response = await http.post(
+        Uri.parse('$baseUrl/post/create'),
+        headers: {
+          'app-id': '626fc967e000f62c19f05f23',
+          'Content-Type' : 'application/json'
+        },
+        body: jsonEncode({_jsonPost})
+    );
+    if(response.statusCode == 200) {
+      return Post.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Aggiunta del commento fallita: ${response.body}');
+  }
+
+
+//funzione per eliminare un post
+  static Future<bool> deletePost(String id) async {
+
+    final http.Response response = await http.delete(
+      Uri.parse('$baseUrl/post/$id'),
+      headers: {
+        'app-id': '626fc967e000f62c19f05f23',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    throw Exception('Post non eliminato: ${response.body}');
+  }
+
+  //funzione per modificare un post
+  static Future<Post> modifyPost(Post post) async {
+    Map<String, dynamic> _jsonPost = post.toJson(); //trasformo il post in json
+    _jsonPost.removeWhere((key, value) => value == null);
+
+    //se sono qui significa che il post non è nullo
+    final http.Response response = await http.put(
+        Uri.parse('$baseUrl/post/create'),
+        headers: {
+          'app-id': '626fc967e000f62c19f05f23',
+          'Content-Type' : 'application/json'
+        },
+        body: jsonEncode({_jsonPost})
+    );
+    if(response.statusCode == 200) {
+      return Post.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Modifica non riuscita: ${response.body}');
+  }
+
+
 }

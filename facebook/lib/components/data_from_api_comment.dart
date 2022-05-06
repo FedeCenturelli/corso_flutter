@@ -61,7 +61,7 @@ class _DataFromApiCommentState extends State<DataFromApiComment> {
                         child: CircularProgressIndicator()
                     );
                   }
-                  return CommentWidget(commento: comments[index]);
+                  return CommentWidget(commento: comments[index]); //widget per costruire un commento
                 }
             );
           } else {
