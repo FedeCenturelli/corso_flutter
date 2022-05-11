@@ -1,5 +1,4 @@
 import 'package:facebook/pages/profilo.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,17 +10,22 @@ class MenuDrawer extends StatelessWidget {
     return Drawer(
         child: ListView(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 150,
           child:  DrawerHeader(
-                child: Align(
-                  alignment: AlignmentDirectional.bottomStart,
-                  child: Text('Menu', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+            child: Align(
+              alignment: AlignmentDirectional.bottomStart,
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.white),
+              ),
             ),
-                ),
             decoration: BoxDecoration(
               image: DecorationImage(
-              image: AssetImage("assets/drawer.jpg"),
+                image: AssetImage("assets/drawer.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -33,17 +37,19 @@ class MenuDrawer extends StatelessWidget {
           onTap: () async {
             SharedPreferences sp = await SharedPreferences.getInstance();
             var _loggedId = sp.getString('id');
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Profilo(id: _loggedId))
-            );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Profilo(id: _loggedId)));
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.settings),
-          title: const Text('Impostazioni'),
+        const ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('Impostazioni'),
         ),
         ListTile(
-          leading: Icon(Icons.logout),
-          title: Text('Logout'),
+          leading: const Icon(Icons.logout),
+          title: const Text('Logout'),
           onTap: () => Navigator.of(context).popAndPushNamed('/login'),
         )
       ],

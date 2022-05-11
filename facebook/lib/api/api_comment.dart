@@ -1,13 +1,11 @@
 import 'dart:convert';
-
 import 'package:facebook/models/comment.dart';
 import 'package:facebook/models/comment_response.dart';
-import 'package:facebook/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiComment {
-  static String get baseUrl => 'https://dummyapi.io/data/v1/';
+  static String get baseUrl => 'https://dummyapi.io/data/v1';
 
 //funzione per ottenere la lista dei commenti
   static Future<CommentResponse> getCommentList() async {
@@ -75,10 +73,10 @@ class ApiComment {
 
 
 //funzione per eliminare un commento
-  static Future<bool> deleteComment(String id) async {
-    //se sono qui significa che il commento non è nullo
+  static Future<bool> deleteComment(String commentId) async {
+
     final http.Response response = await http.delete(
-      Uri.parse('$baseUrl/comment/$id'),
+      Uri.parse('$baseUrl/comment/$commentId'),
       headers: {
         'app-id': '626fc967e000f62c19f05f23',
       },
@@ -91,8 +89,6 @@ class ApiComment {
   }
 
   static Future<Comment> addCommentManually(String postId, String message) async{
-    print('prova');
-
     SharedPreferences sp = await SharedPreferences.getInstance();
     String? userId = sp.getString('id');
 
@@ -116,7 +112,6 @@ class ApiComment {
     if(response.statusCode == 200){
       return Comment.fromJson(jsonDecode(response.body));
     }
-print(response.statusCode);
     throw Exception('Commento non inserito: ${response.body}');
   }
 }

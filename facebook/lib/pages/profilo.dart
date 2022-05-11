@@ -31,8 +31,15 @@ class _ProfiloState extends State<Profilo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple[800],
         centerTitle: true,
         title: Text('Profilo'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.settings),
+          )
+        ],
       ),
       body: FutureBuilder(
         future: _future,

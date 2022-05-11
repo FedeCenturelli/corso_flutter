@@ -27,6 +27,6 @@ class _LoginCheckState extends State<LoginCheck> {
   //se id è nullo utete non loggato quindi mostra login, se no mostra home eprchè utente è loggato
   @override
   Widget build(BuildContext context) {
-    return id == null? Login() : Home();
+    return id == null ? const Login() : const Home();
   }
 }

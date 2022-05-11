@@ -24,15 +24,16 @@ class _DataFromApiPostState extends State<DataFromApiPost> {
     late PostResponse result;
 
     //se l'id dell'utente è nullo allora chiamo la funzione che recupera i dati dei post, altrimenti quella che recupera i dati dei post per utente
-    if(widget.idUserPerPost == null) {
-      result = await ApiPost.getPostList(page: _page); //get post list ritorna un oggetto di tipo future
+    if (widget.idUserPerPost == null) {
+      result = await ApiPost.getPostList(
+          page: _page); //get post list ritorna un oggetto di tipo future
     } else {
       result = await ApiPost.getPostByUser(widget.idUserPerPost!, page: _page);
     }
     setState(() {
       _skipPost = _skipPost + result.limit;
       hasMorePost = (result.total - _skipPost) > 0;
-      _page = _page +1;
+      _page = _page + 1;
       _listaPostVisualizzati = _listaPostVisualizzati + result.data;
     });
     return _listaPostVisualizzati;
@@ -51,34 +52,27 @@ class _DataFromApiPostState extends State<DataFromApiPost> {
   @override
   Widget build(BuildContext context) {
 
-// ApiPost.getPostByTag('60d21b4667d0d8992e610c85'); //controllo per json
-
     return FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            if(snapshot.hasData && snapshot.data is List<Post>) {
-              List<Post> posts = snapshot.data as List<Post>;
-              return ListView.builder(
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: posts.length+(hasMorePost? 1:0),
-                  itemBuilder: (context, index) {
-                    if(posts.length == index) {
-                      _future= _fetchPosts();
-                      return Center(
-                          child: CircularProgressIndicator()
-                      );
-                    }
-                    return PostCard(post: posts[index]);
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data is List<Post>) {
+            List<Post> posts = snapshot.data as List<Post>;
+            return ListView.builder(
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: posts.length + (hasMorePost ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (posts.length == index) {
+                    _future = _fetchPosts();
+                    return const Center(child: CircularProgressIndicator());
                   }
-              );
-            }
-            if(snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            }
-            return Center(
-                child: CircularProgressIndicator());
+                  return PostCard(post: posts[index]);
+                });
           }
-      );
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }

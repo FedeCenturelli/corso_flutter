@@ -1,11 +1,9 @@
 import 'package:facebook/api/api_comment.dart';
 import 'package:facebook/components/data_from_api_comment.dart';
 import 'package:facebook/components/post_card.dart';
-import 'package:facebook/models/comment.dart';
 import 'package:facebook/models/post.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class DettagliPost extends StatefulWidget {
   final Post post;
@@ -19,10 +17,11 @@ class DettagliPost extends StatefulWidget {
 class _DettagliPostState extends State<DettagliPost> {
   late TextEditingController _textEditingController;
   String? _message;
-
+  late UniqueKey _key;
 
   @override
   void initState() {
+    _key = UniqueKey();
     _textEditingController = TextEditingController();
     super.initState();
   }
@@ -31,6 +30,7 @@ class _DettagliPostState extends State<DettagliPost> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _key,
         body: ListView(
           shrinkWrap: true,
           children: [
@@ -40,9 +40,9 @@ class _DettagliPostState extends State<DettagliPost> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () {
-              showModalBottomSheet(
+            child: const Icon(Icons.add),
+            onPressed: () async {
+              var popResult = await showModalBottomSheet(
                 isScrollControlled: true,
                   context: context,
                   builder: (context) {
@@ -56,8 +56,8 @@ class _DettagliPostState extends State<DettagliPost> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Text('inserisci il commento'),
                           ),
                           TextField(
@@ -69,26 +69,32 @@ class _DettagliPostState extends State<DettagliPost> {
                           ),
                           Row(children: [
                             TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text('Annulla')),
+                                child: const Text('Annulla'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  _message = null;
+                                  _textEditingController.clear();
+                                },
+                                ),
                             TextButton(
-                              child: Text('Pubblica'),
+                              child: const Text('Pubblica'),
                               onPressed: () async {
                                 if(_message == null|| _message!.isEmpty) {
                                   Navigator.of(context).pop();
                                 }
-
-                                final response= await ApiComment.addCommentManually(widget.post.id!, _message!);
-
-                                print(response.id);
-                                Navigator.of(context).pop();
-                              }
-                            )
+                                await ApiComment.addCommentManually(widget.post.id!, _message!);
+                                _message = null;
+                                _textEditingController.clear();
+                                Navigator.of(context).pop(true);
+                              })
                           ]),
-                        ],
-                      ),
-                    );
+                        ],),);
                   });
+              if(popResult == true) {
+                setState(() {
+                  _key = UniqueKey();
+                });
+              }
             }),
       ),
     );

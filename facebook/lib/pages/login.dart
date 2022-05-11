@@ -1,5 +1,4 @@
 import 'package:facebook/components/card_login.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {

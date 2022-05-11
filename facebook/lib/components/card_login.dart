@@ -1,4 +1,3 @@
-import 'package:facebook/pages/loging_check.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,7 +35,7 @@ class _CardLoginState extends State<CardLogin> {
           elevation: 7,
           color: Colors.white38,
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.white54, width: 1),
+            side: const BorderSide(color: Colors.white54, width: 1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -44,10 +43,15 @@ class _CardLoginState extends State<CardLogin> {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(widget.imageUrl),
-                radius: 50, ),
-              Text('${widget.firstName} ${widget.lastName}',
+                radius: 50,
+              ),
+              Text(
+                '${widget.firstName} ${widget.lastName}',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30),
               ),
             ],
           ),

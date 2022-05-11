@@ -5,7 +5,7 @@ import 'package:facebook/models/user_response.dart';
 import 'package:http/http.dart' as http;
 
 class ApiUser {
-  static String get baseUrl => 'https://dummyapi.io/data/v1/';
+  static String get baseUrl => 'https://dummyapi.io/data/v1';
 
   //funzione per ottenere la lista degli utenti
   static Future<UserResponse> getUserList() async {
@@ -30,5 +30,24 @@ class ApiUser {
       return User.fromJson(jsonDecode(response.body));
     }
     throw Exception('Errore in ricevere gli utenti: ${response.body}');
+  }
+
+  static Future<User> modifyUser(User user) async {
+    Map<String, dynamic> _jsonPost = user.toJson();
+    _jsonPost.removeWhere((key, value) => value == null);
+
+
+    final http.Response response = await http.put(
+        Uri.parse('$baseUrl/post/${user.id}'),
+        headers: {
+          'app-id': '626fc967e000f62c19f05f23',
+          'Content-Type' : 'application/json'
+        },
+        body: jsonEncode(_jsonPost)
+    );
+    if(response.statusCode == 200) {
+      return User.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Modifica user non riuscita: ${response.body}');
   }
 }

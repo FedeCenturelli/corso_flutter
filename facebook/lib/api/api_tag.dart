@@ -4,7 +4,7 @@ import 'package:facebook/models/user_response.dart';
 import 'package:http/http.dart' as http;
 
 class ApiTag {
-  static String get baseUrl => 'https://dummyapi.io/data/v1/';
+  static String get baseUrl => 'https://dummyapi.io/data/v1';
 
   //funzione per ottenere la lista dei tag
   static Future<TagResponse> getUserList() async {
